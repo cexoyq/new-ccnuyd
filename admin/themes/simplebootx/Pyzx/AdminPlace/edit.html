@@ -1,0 +1,81 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('AdminPlace/index')}">场地管理</a></li>
+			<!--li><a href="{:U('AdminPlace/add')}">添加场地</a></li-->
+		</ul>
+
+  <form method="post" class="form-horizontal js-ajax-form" action="{:U('AdminPlace/edit_post')}">
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">添加场馆或场地</legend>
+      </div>
+
+    <div class="control-group">
+
+          <!-- Select Basic -->
+          <label class="control-label">上级</label>
+          <div class="controls">
+              <select name="parentid" disabled="disabled">
+                  <option value="0">作为一级菜单</option>
+                  {$select_categorys}
+              </select>
+          </div>
+	</div>
+
+	<div class="control-group">
+          <!-- Text input-->
+          <label class="control-label" for="input01">场馆/场地名称</label>
+          <div class="controls">
+            <input type="text"  name="name" placeholder="输入场馆/场地名称" class="input-xlarge" value="{$data.name}">
+            <span class="form-required">*</span>
+          </div>
+	</div>
+
+    <!--div class="control-group">
+          <label class="control-label">Button</label>
+          <!-- Button -->
+          <!--div class="controls">
+            <button class="btn btn-success">确认</button>
+          </div>
+	</div-->
+
+    </fieldset>
+    <div class="form-actions">
+    	<input type="hidden" name="id" value="{$data.id}" />
+        <button type="submit" class="btn btn-primary js-ajax-submit">{:L('SAVE')}</button>
+        <button class="btn js-ajax-close-btn" type="submit">{:L('CLOSE')}</button>
+    </div>
+  </form>
+</div>
+
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		$(function() {
+			$(".js-ajax-close-btn").on('click', function(e) {
+				e.preventDefault();
+				Wind.use("artDialog", function() {
+					art.dialog({
+						id : "question",
+						icon : "question",
+						fixed : true,
+						lock : true,
+						background : "#CCCCCC",
+						opacity : 0,
+						content : "您确定需要关闭当前页面嘛？",
+						ok : function() {
+							setCookie('refersh_time_admin_menu_index', 1);
+							window.close();
+							return true;
+						}
+					});
+				});
+			});
+		});
+	</script>
+
+
+</body>
+</html>

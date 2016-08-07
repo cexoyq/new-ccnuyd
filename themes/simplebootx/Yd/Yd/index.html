@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>{$site_seo_title} {$site_name}</title>
+		<meta name="keywords" content="{$site_seo_keywords}" />
+		<meta name="description" content="{$site_seo_description}">
+		<tc_include file="Public:head" />
+		<link href="__TMPL__Public/css/slippry/slippry.css" rel="stylesheet">
+    <style type="text/css">
+    table {
+        background-color: #FCFCFC !important;
+        text-align: center !important;
+    }
+    th {
+        text-align: center !important;
+        padding-left:2px !important;
+        padding-right:2px !important;
+        padding-bottom:10px !important;
+        padding-top:10px !important;
+    }
+    td {
+	cursor: pointer;
+	text-align: center !important;
+	padding-left: 2px !important;
+	padding-right: 2px !important;
+	padding-bottom: 10px !important;
+	padding-top: 10px !important;
+	border-top-width: 3px !important;
+	border-right-width: 3px !important;
+	border-bottom-width: 3px !important;
+	border-left-width: 3px !important;
+	border-top-color: #D4D4D4;
+	border-right-color: #D4D4D4;
+	border-bottom-color: #D4D4D4;
+	border-left-color: #D4D4D4;
+	font-size: 12px !important;
+	vertical-align: middle;
+	font-family: "Times New Roman", Times, serif;
+    }
+	ol, ul {
+		list-style: none;
+	}
+	hr {
+	border-top-color: #CCCCCC;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+	}
+	.order-status {
+		border: 1px solid #aaaaaa;
+		display: block;
+		overflow: hidden;
+		width: 16px;
+		height: 16px;
+	}
+	.can-order {
+    	background-color:#FAFAFA;
+	}
+	.can-not-order {
+		background-color:#B89B92;
+	}
+	.chosen {
+
+		background-color:#97BAFB;
+	}
+	.font12px {
+		font-size: 12px !important;
+	}
+	.echo li {
+		margin: 5px 5px;
+		border: 1px solid #aaaaaa;
+		border-radius: 3px;
+		width: 246px;
+		height: 30px;
+		line-height: 30px;
+		font-size: 14px;
+		color: #222222;
+		font: inherit;
+		display: list-item;
+		text-align: -webkit-match-parent;
+	}
+	.submit-button {
+	background: #4f6dcf;
+	display: block;
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 5px;
+	color: #fff;
+	text-align: center;
+	border: 0;
+	outline: 0;
+	font-size: 14px;
+	cursor: pointer;
+	clear: both;
+	text-decoration: none;
+	font: inherit;
+	margin-top: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+	}
+    </style>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/datepicker/datepicker.css">
+	</head>
+<body class="body-white">
+    <tc_include file="Public:nav" />
+    
+    <div class="container">
+        <div class="row-fluid">
+        	<div class="span12"><div class="well">
+                    <span>预订日期：</span><input type="text" class="riqi" id="riqi" value="" style="width:80px" readonly>
+                    {$input_tel}
+                    {$input_yd_xm}
+                    <span id="msg2" class="msg2" style="color:red;">消息：{$msg2}</span>
+
+       	  </div></div>
+        </div><!--div class="row-fluid"-->
+        
+        <div class="row-fluid">
+            <div class="span9">
+            	
+                {$table}
+
+            </div>
+
+			<div class="span3">
+                <ul class="inline">
+                  <li><span class="can-order order-status"></span></li>
+                  <li class="font12px">可预订</li>
+                  <li><span class="can-not-order order-status"></span></li>
+                  <li class="font12px">不可预订</li>
+                  <li><span class="chosen order-status"></span></li>
+                  <li class="font12px">当前选定</li>
+                </ul>
+                <hr>
+                <dl>
+                    <dt>项目：</dt>
+                    <dd id='status_xm'>{$cdname}</dd>
+                    <dt>日期：</dt>
+                    <dd id='status_riqi'>2015-5-5</dd>
+                    <dt>场次：</dt>
+                </dl>
+                <ul id="echo" class="echo">
+                </ul>
+                <a onclick="showConfirmOrder()" href="javascript:void(0);" class="submit-button active">提交订单</a>
+            </div>
+		</div>
+		<tc_include file="Public:footer" />  
+	</div><!--<div class="container tc-main">-->
+    
+    
+
+
+
+    <!-- JavaScript -->
+	<tc_include file="Public:scripts" />
+	<script>
+        /*AJAX 当点击TD后操作*/
+        function ajax_yd(time_id,cd_id,riqi,xm,tel){
+            var arr_data1 = new Array();
+            arr_data1['time_id'] = time_id;
+            arr_data1['cd_id'] = cd_id;
+            arr_data1['riqi'] = riqi;
+            arr_data1['xm'] = xm;
+            arr_data1['tel'] = tel;
+            var arr_data = new Array();
+            arr_data[0] = time_id;
+            arr_data[1] = cd_id;
+            arr_data[2] = riqi;
+            arr_data[3] = xm;
+            arr_data[4] = tel;
+			//echo_(time_id + "-" + cd_id , xm + "预订" + riqi + "," + time_id + "," + cd_id);
+            //alert("时间ID：" + time_id + "，场地ID：" + cd_id + "，日期：" + riqi + "，电话：" + tel + "，姓名：" + xm);
+            $.post("{:U('Yd/Yd/ajax_yd')}",{"arr":arr_data},function(ret_data){
+                //_data=decodeURIComponent(ret_json_data);
+                //arr_data=eval('('+_data+')');	//分割json格式为数组
+				if(ret_data > 1){
+					//预订成功了！
+					$("td#" + cd_id + "-" + time_id).html('OK')
+					$("td#" + cd_id + "-" + time_id).addClass('chosen');
+					var cd_name = $("td#" + cd_id + "-" + time_id).attr("cd_name");
+					var starttime = $("td#" + cd_id + "-" + time_id).attr("starttime");
+					var endtime = $("td#" + cd_id + "-" + time_id).attr("endtime");
+					echo_(ret_data,cd_name + "," + starttime + "至" + endtime + "预订成功!");
+					//$('li#' + cd_id + time_id).html(v.xm);
+				}else{
+					//echo_(ret_data,ret_data + "fail!");
+				}
+                //$("#msg2").html(ret_data);	
+            });
+        }
+
+        /*取得预订的内容，每3秒刷新一次*/
+        function ajax_refresh(){
+			var data = new Array();
+			data[0] = $('#riqi').val();
+			//alert("riqi:" + data[0]);
+            $.post("{:U('Yd/Yd/ajax_refresh')}",{"refresh":data},function(ret_json_data){
+				//清空原来的TD单元格内容
+				$(".td_yd").html('');	
+				//清空原有的提示框内容
+				//$(".td_yd").removeAttr('data-toggle');
+				//$(".td_yd").removeAttr('title');
+				//清空原有的样式类
+				$(".td_yd").removeClass('chosen can-order can-not-order');	
+				_data=decodeURIComponent(ret_json_data);
+                arr_data=eval('('+_data+')');	//分割json格式为数组
+				//alert("ret_data:" + arr_data);
+				//console.log(arr_data.toString());
+				/*分析数组，将数据显示到每个单元格中*/
+				$.each(arr_data,function(n,value) {   
+						$.each(value,function(k,v) {   
+console.log( "id:" + k + ", xm:" + v.xm + ", cdid:" + v.place_id + ", sjid:" + v.opentime_id + ", tel:" + v.tel); 
+								$('td#' + v.place_id + '-' + v.opentime_id).html(v.xm);
+								/*
+								$('td#' + v.place_id + '-' + v.opentime_id).attr('starttime',v.starttime);
+								$('td#' + v.place_id + '-' + v.opentime_id).attr('endtime',v.endtime);
+								$('td#' + v.place_id + '-' + v.opentime_id).attr('cd_name',v.cd_name);
+								*/
+								//提示框
+								//$('td#' + v.place_id + '-' + v.opentime_id).attr('data-html',"true");
+								//$('td#' + v.place_id + '-' + v.opentime_id).attr('data-toggle',"tooltip");
+								//$('td#' + v.place_id + '-' + v.opentime_id).attr('data-placement',"top");
+								//$('td#' + v.place_id + '-' + v.opentime_id).attr('title',"场次：" + v.cd_name + "\n开始时间：" + v.starttime + "\n结束时间:" + v.endtime);
+								//增加显示类，有可预订，已预订且不能被预订，已被自己预选
+								$('td#' + v.place_id + '-' + v.opentime_id).addClass(v.class);
+						}); 
+				   
+				});  
+                //$("#msg2").html(arr_data.toString());
+            });
+        }
+
+        /*取得msg2消息内容，每3秒刷新一次*/
+        function ajax_msg2(){
+            var data = new Array();
+            $.post("{:U('Yd/Yd/ajax_msg2')}",{"refresh":data},function(ret_data){
+                $("#msg2").html(ret_data);	
+            });
+        }
+
+		/*添加和删除预订提示*/
+		function echo_(id,msg){
+			$("#echo").append("<li id='" + id + "'>" + msg + "</li>");
+		}
+    </script>
+    <script>
+        if (top.location != location) {
+            //top.location.href = document.location.href ;
+        }
+        
+        $(function(){
+			//激活提示框
+			$("[data-toggle='tooltip']").tooltip();
+            /*显示和设置日期选择控件*/
+            $('#riqi').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+				todayBtn: true,
+				todayHighlight: true,
+				pickerPosition: "bottom-left"
+            }).on('changeDate', function(ev){
+                    $('#riqi').datepicker('hide');
+					//更改了日期，提交更改并刷新页面
+					riqi = $("#riqi").val();
+					$("dd#status_riqi").html(riqi);
+					ajax_refresh();
+            });
+
+			//alert( $('#riqi').datepicker("getDate").toLocaleString());//获取
+			var _date = new Date();
+			$('#riqi').val(_date.toLocaleDateString());
+			
+            /*当鼠标点击单元格预订或取消*/
+            window.arryd=new Array();	//建立全局数组变量，用于保存用户的预订信息
+            $(".td_yd").click(function(){
+                time_id = $(this).attr("opentime_id");				//时间ID号
+                cd_id = $(this).parent('.tr_yd').attr("cd_id");	//场地ID号
+                riqi = $('#riqi').val();
+                xm = $('#user_xm').val();
+                tel = $('#user_tel').val();
+                //alert("时间ID：" + time_id + "，场地ID：" + cd_id + "，日期：" + riqi + "，电话：" + tel + "，姓名：" + xm);
+                ajax_yd(time_id,cd_id,riqi,xm,tel);
+            });
+            setInterval(ajax_msg2, 8000); //定时器，定时执行AJAX函数读取消息msg2后
+            setInterval(ajax_refresh, 5000); //定时器，定时执行AJAX函数取得预订列表
+			
+			ajax_refresh();//执行，读取并显示预订的表格内容
+			
+        });//$(function(){
+            
+    
+    </script>
+    <script src="__PUBLIC__/datepicker/bootstrap-datepicker.js"></script>
+	{:hook('footer_end')}
+</body>
+</html>

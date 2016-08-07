@@ -1,0 +1,39 @@
+<admintpl file="header" />
+</head>
+<body>
+
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('AdminOpentime/index')}">时间管理</a></li>
+			<li><a href="{:U('AdminOpentime/add')}">添加时间</a></li>
+            <li><a href="{:U('AdminOpentime/selectworktime')}">选择工作时间</a></li>
+		</ul>
+
+  <form method="post" class="form-horizontal js-ajax-form" action="{:U('AdminOpentime/add_post')}">
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">选择工作时间</legend>
+      </div>
+
+    <div class="control-group">
+
+          <!-- Select Basic -->
+          <label class="control-label">工作时间</label>
+          <div class="controls">
+              <select name="worktime">
+                  <!--option value="0">作为一级菜单</option-->
+                  {$select_worktime}
+              </select>
+              <span class="form-required">*</span>
+          </div>
+	</div>
+
+    </fieldset>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary js-ajax-submit">{:L('SAVE')}</button>
+        <a class="btn" href="{:U('AdminOpentime/index')}">{:L('BACK')}</a>
+    </div>
+  </form>
+
+
+</body>
+</html>

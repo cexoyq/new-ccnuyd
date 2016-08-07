@@ -1,0 +1,125 @@
+<admintpl file="header" />
+</head>
+<body>
+
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('AdminSysset/index')}">系统设置</a></li>
+			<!--li><a href="{:U('AdminSysset/add')}">测试</a></li-->
+		</ul>
+<div class="row-fluid">
+    
+    <div class="span8">
+        <form method="post" class="form-horizontal js-ajax-form" action="{:U('AdminSysset/sys_post')}">
+          <fieldset>
+          <div class="control-group">
+                <!-- Select Basic -->
+                <label class="control-label" for="title">是否关闭预订</label>
+                <div class="controls">
+                    <select name="stopyd">
+                        <!--option value="0">作为一级菜单</option-->
+                        <!--option value="0">关闭用户预订</option>
+                        <option value="1">开放用户预订</option-->
+                        {$select_stopyd}
+                    </select>
+                    <span class="form-required">*</span>
+                    <span class="help-block">当关闭用户预订后，用户登陆进系统不能进行预订操作.</span>
+                </div>
+          </div>
+          
+          <div class="control-group">
+                <label class="control-label" for="title">使用信用分方法</label>
+                <div class="controls">
+                  <input type="text"  name="credittype" placeholder="信用分数" class="input-xlarge" value="{$credittype}" >
+                  <span class="form-required">*</span>
+                  <span class="help-block">0分表示不使用信用分，其它表示用户需要达到此信用分数才能预订</span>
+                  <span class="help-block"> 本项更改后，用户页面刷新即生效！用户第一次进入系统后赠送10分，当有预订成功却没交费情况时，管理员可根据情况进行扣1分操作！</span>
+                </div>
+          </div>
+
+		<div class="control-group">
+          <label class="control-label" for="title">普通用户预订限制2</label>
+          <div class="controls">
+              <select name="useryd2">
+                  <!--option value="0">作为一级菜单</option-->
+                  <!--option value="0">必须输入电话才能订场</option>
+                  <option value="1">无限制</option-->
+                  {$select_useryd2}
+              </select>
+              <span class="form-required">*</span>
+          </div>
+		</div>
+        
+        <div class="control-group">
+          <label class="control-label" for="title">输入0手动放出预订日期，输入日数表示自动放出预订的日期</label>
+          <div class="controls">
+          	<input type="text"  name="openyddate" placeholder="放出可预订的日期" class="input-xlarge" value="{$openyddate}" >
+              <span class="form-required">*</span>
+          </div>
+		</div>
+
+		<div class="control-group">
+          <label class="control-label" for="title">可预订的天数</label>
+          <div class="controls">
+				<input type="text"  name="yddate" placeholder="预订的天数" class="input-xlarge" value="{$yddate}" >
+              <span class="form-required">*</span>
+          </div>
+		</div>
+        
+        <div class="control-group">
+          <label class="control-label" for="title">预订后姓名是否展示</label>
+          <div class="controls">
+              <select name="showname">
+                  <!--option value="0">作为一级菜单</option-->
+                  <!--option value="0">显示为"已预订"</option>
+                  <option value="1">显示为用户姓名</option>
+                  <option value="2">显示为黄色色块</option-->
+                  {$select_showname}
+              </select>
+              <span class="form-required">*</span>
+          </div>
+		</div>
+        
+		<div class="control-group">
+          <label class="control-label" for="title">用户每天预订场地限制</label>
+          <div class="controls">
+				<input type="text"  name="yd_cd_limit" placeholder="限制场地" class="input-xlarge" value="{$yd_cd_limit}" >
+              <span class="form-required">*</span>
+          </div>
+		</div>
+        
+		<div class="control-group">
+          <label class="control-label" for="title">用户每天预订时间限制</label>
+          <div class="controls">
+				<input type="text"  name="yd_time_limit" placeholder="限制小时" class="input-xlarge" value="{$yd_time_limit}" >
+              <span class="form-required">*</span>
+          </div>
+		</div>
+        
+		<!--div class="control-group">
+          <label class="control-label" for="title">工作时间</label>
+          <div class="controls">
+              <select name="worktime">
+                  {$select_worktime}
+              </select>
+              <span class="form-required">*</span>
+              <span class="help-block">场地使用的工作时间，一般分夏季和冬季.</span>
+          </div>
+		</div-->
+        
+		</fieldset>
+          <div class="form-actions">
+              <input type="hidden" name="senderid" value="{:sp_get_current_admin_id()}" />
+              <button type="submit" class="btn btn-primary js-ajax-submit">{:L('SAVE')}</button><!-- js-ajax-submit-->
+          </div>
+        </form>
+    </div>
+    
+	<div class="span4">
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

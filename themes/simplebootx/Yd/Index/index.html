@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>{$site_seo_title} {$site_name}</title>
+		<meta name="keywords" content="{$site_seo_keywords}" />
+		<meta name="description" content="{$site_seo_description}">
+		<tc_include file="Public:head" />
+		<link href="__TMPL__Public/css/slippry/slippry.css" rel="stylesheet">
+    <style type="text/css">
+    table {
+        background-color: #FCFCFC !important;
+        text-align: center !important;
+    }
+    th {
+        text-align: center !important;
+        padding-left:2px !important;
+        padding-right:2px !important;
+        padding-bottom:10px !important;
+        padding-top:10px !important;
+    }
+    td {
+        cursor: pointer;
+        text-align: center !important;
+        padding-left:2px !important;
+        padding-right:2px !important;
+        padding-bottom:10px !important;
+        padding-top:10px !important;
+        border-top-width: 3px !important;
+        border-right-width: 3px !important;
+        border-bottom-width: 3px !important;
+        border-left-width: 3px !important;
+        border-top-color: #D4D4D4;
+        border-right-color: #D4D4D4;
+        border-bottom-color: #D4D4D4;
+        border-left-color: #D4D4D4;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/datepicker/datepicker.css">
+	</head>
+<body class="body-white">
+
+
+
+{:hook('body_start')}
+<div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+     <div class="container">
+       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </a>
+       <a class="brand" href="__ROOT__/"><img src="__TMPL__Public/images/logo.png"/></a>
+     </div>
+   </div>
+ </div>
+
+<p></p>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="span12" style="min-width:900px">
+                {$table}
+            </div>
+        </div>
+        
+
+	</div><!--<div class="container tc-main">-->
+    
+    
+
+
+
+    <!-- JavaScript -->
+	<tc_include file="Public:scripts" />
+	<script>
+        /*取得预订的内容，每3秒刷新一次*/
+        function ajax_list_yd(){
+        }
+        /*取得msg2消息内容，每3秒刷新一次*/
+    </script>
+    <script>
+        if (top.location != location) {
+            //top.location.href = document.location.href ;
+        }
+        
+        $(function(){
+            setInterval(ajax_list_yd, 5000); //定时器，定时执行AJAX函数取得预订列表
+        });//$(function(){
+            
+    
+    </script>
+    {:hook('footer_end')}
+</body>
+</html>

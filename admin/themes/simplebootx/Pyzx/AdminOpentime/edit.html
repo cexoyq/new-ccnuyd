@@ -1,0 +1,133 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('AdminOpentime/index')}">时间管理</a></li>
+			<li><a href="{:U('AdminOpentime/add')}">添加时间</a></li>
+            <li><a href="{:U('AdminOpentime/selectworktime')}">选择工作时间</a></li>
+		</ul>
+
+  <form method="post" class="form-horizontal js-ajax-form" action="{:U('AdminOpentime/edit_post')}">
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">修改时间</legend>
+      </div>
+    <div class="control-group">
+
+          <!-- Select Basic -->
+          <label class="control-label">上级</label>
+          <div class="controls">
+              <select name="parentid" disabled="disabled">
+                  <!--option value="0">作为一级菜单</option-->
+                  {$select_categorys}
+              </select>
+              <span class="form-required">*</span>
+          </div>
+	</div>
+
+	<div class="control-group">
+          <!-- Text input-->
+          <label class="control-label" for="input01">时间名称</label>
+          <div class="controls">
+            <input type="text"  name="name" placeholder="输入时间名称" class="input-xlarge" value="{$data.name}">
+            <span class="form-required">*</span>
+          </div>
+	</div>
+	<div class="control-group">
+          <!-- Text input-->
+          <label class="control-label" for="input01">开始时间</label>
+          <div class="controls">
+            <label for="select">{$data.starttime}</label>
+            <select name="starttime" id="select" >
+              <option value="7:00">7:00</option>
+              <option value="8:00">8:00</option>
+              <option value="9:00">9:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+              <option value="12:00">12:00</option>
+              <option value="13:00">13:00</option>
+              <option value="14:00">14:00</option>
+              <option value="15:00">15:00</option>
+              <option value="16:00">16:00</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+              <option value="19:00">19:00</option>
+              <option value="20:00">20:00</option>
+              <option value="21:00">21:00</option>
+              <option value="22:00">22:00</option>
+            </select>
+			<span class="form-required">*</span>
+          </div>
+          </div>
+	<div class="control-group">
+          <label class="control-label" for="input01">结束时间</label>
+          <div class="controls">
+            <label for="select"></label>
+            <select name="endtime" id="select">
+              <option value="7:00">7:00</option>
+              <option value="8:00">8:00</option>
+              <option value="9:00">9:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+              <option value="12:00">12:00</option>
+              <option value="13:00">13:00</option>
+              <option value="14:00">14:00</option>
+              <option value="15:00">15:00</option>
+              <option value="16:00">16:00</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+              <option value="19:00">19:00</option>
+              <option value="20:00">20:00</option>
+              <option value="21:00">21:00</option>
+              <option value="22:00">22:00</option>
+            </select>
+			<span class="form-required">*</span>
+          </div>
+	</div>
+
+    <!--div class="control-group">
+          <label class="control-label">Button</label>
+          <!-- Button -->
+          <!--div class="controls">
+            <button class="btn btn-success">确认</button>
+          </div>
+	</div-->
+
+    </fieldset>
+    <div class="form-actions">
+    	<input type="hidden" name="id" value="{$data.id}" />
+        <button type="submit" class="btn btn-primary js-ajax-submit">{:L('SAVE')}</button>
+        <button class="btn js-ajax-close-btn" type="submit">{:L('CLOSE')}</button>
+    </div>
+  </form>
+</div>
+
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		$(function() {
+			$(".js-ajax-close-btn").on('click', function(e) {
+				e.preventDefault();
+				Wind.use("artDialog", function() {
+					art.dialog({
+						id : "question",
+						icon : "question",
+						fixed : true,
+						lock : true,
+						background : "#CCCCCC",
+						opacity : 0,
+						content : "您确定需要关闭当前页面嘛？",
+						ok : function() {
+							setCookie('refersh_time_admin_opentime_index', 1);
+							window.close();
+							return true;
+						}
+					});
+				});
+			});
+		});
+	</script>
+
+
+</body>
+</html>
